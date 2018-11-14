@@ -39,11 +39,7 @@ public abstract class AdminController extends BaseController {
     }
 
     public int calcStartRow(int page, int limit) {
-        if (sql.getDbStyle() instanceof H2Style) {
-            return (page - 1) * limit;
-        } else {
-            return (page - 1) * limit + 1;
-        }
+        return (page - 1) * limit + 1;
     }
 
     protected boolean isEnd(Integer page, Integer limit, long total) {

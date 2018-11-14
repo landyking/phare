@@ -54,8 +54,8 @@ public class CustomSqlManagerFactoryBean extends SqlManagerFactoryBean {
                 }
             }
             if (dt == DBType.H2Database) {
-                logger.info("h2database, use OFFSET_START_ZERO = true");
-                this.extProperties.put("OFFSET_START_ZERO", "true");
+//                logger.info("h2database, use OFFSET_START_ZERO = true");
+//                this.extProperties.put("OFFSET_START_ZERO", "true");
             }
         }
         return super.getObject();

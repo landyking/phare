@@ -8,16 +8,24 @@ import org.beetl.sql.core.kit.BeanKit;
 
 import java.lang.annotation.Annotation;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by landy on 2018/11/14.
  */
 public class CustomH2Style extends H2Style {
-    @Override
-    public SQLSource genInsert(Class<?> cls) {
-        return super.genInsert(cls);
+
+    public String getPageSQLStatement(String sql, long offset, long pageSize) {
+        offset = PageParamKit.mysqlOffset(this.offsetStartZero, offset);
+        StringBuilder builder = new StringBuilder(sql);
+        builder.append(" limit ").append(offset).append(" , ").append(pageSize);
+        return builder.toString();
     }
 
+    public void initPagePara(Map<String, Object> param, long start, long size) {
+        param.put("_pageOffset", start - (long) (this.offsetStartZero ? 0 : 1));
+        param.put("_pageSize", size);
+    }
     @Override
     public int getIdType(Class c, String idProperty) {
         List<Annotation> ans = BeanKit.getAllAnnoation(c, idProperty);
