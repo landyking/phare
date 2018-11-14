@@ -16,14 +16,15 @@ public class AddTableInfoController extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
-        String id=superParam.needParam("id",String.class);
+        String code=superParam.needParam("code",String.class);
         String projectId=superParam.needParam("projectId",String.class);
         String name=superParam.needParam("name",String.class);
-        String description=superParam.needParam("description",String.class);
+        String description=superParam.getParam("description",String.class);
         Date createTime = DateTimeTool.now();
 
         TableInfo one=new TableInfo();
-        one.setId(id);
+        one.setId(Texts.uuidLong());
+        one.setCode(code);
         one.setProjectId(projectId);
         one.setName(name);
         one.setDescription(description);

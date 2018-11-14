@@ -10,12 +10,13 @@ listPageData
     and t.ID = #id#
     and t.ID like #'%'+id+'%'#
     @}
+    @if(!isEmpty(code)){
+    and t.code like #'%'+code+'%'#
+    @}
     @if(!isEmpty(name)){
-    and t.NAME = #name#
     and t.NAME like #'%'+name+'%'#
     @}
     @if(!isEmpty(description)){
-    and t.DESCRIPTION = #description#
     and t.DESCRIPTION like #'%'+description+'%'#
     @}
     @if(!isEmpty(createTime)){

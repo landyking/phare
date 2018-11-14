@@ -21,7 +21,7 @@
                 <div class="layui-inline">
                     <label class="layui-form-label" style="width:85px;">编码</label>
                     <div class="layui-input-block" style="margin-left:115px;">
-                        <input type="text" name="id" placeholder="请输入" autocomplete="off" class="layui-input">
+                        <input type="text" name="code" placeholder="请输入" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline">
@@ -66,10 +66,11 @@
                 cols: [[
                     {type: 'numbers', fixed: true},
                     //{checkbox: true, fixed: true},
-                    {field: 'id', title: '编码', width: 150},
+                    {field: 'id', title: 'id', hide: true},
+                    {field: 'code', title: '编码', width: 150},
                     {field: 'name', title: '名称'},
                     {field: 'description', title: '描述'},
-                    {field: 'createTime', title: '创建时间'},
+                    {field: 'createTime', title: '创建时间',hide:true},
                     {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 80}
                 ]]
             },
