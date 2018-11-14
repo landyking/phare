@@ -29,7 +29,7 @@ public class UserTypeAccessControlFilter extends AccessControlFilter implements 
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        Assert.notNull(getUserMode());
+        Assert.notNull(getUserMode(),"user mode can't null");
     }
 
 

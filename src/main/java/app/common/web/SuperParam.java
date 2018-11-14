@@ -41,8 +41,8 @@ public class SuperParam {
     }
 
     public SuperParam(JsonNode... obj) {
-        Assert.notNull(obj);
-        Assert.notEmpty(obj);
+        Assert.notNull(obj,"arguments can't null");
+        Assert.notEmpty(obj,"arguments can't empty");
         container = obj;
     }
 
@@ -64,6 +64,7 @@ public class SuperParam {
         return needParam(null, name, type);
     }
 
+    @SuppressWarnings("unchecked")
     private <T> T convertResult(Class<T> type, JsonNode rst) {
         if (type == String.class) {
             return (T) rst.asText();

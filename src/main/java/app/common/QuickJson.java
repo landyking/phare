@@ -127,6 +127,7 @@ public class QuickJson {
         return obj;
     }
 
+    @SuppressWarnings("unchecked")
     public static void fillFromPojo(ObjectNode obj, Object o) {
         BeanMap.create(o).forEach((o1, o2) -> obj.putPOJO(o1.toString(), o2));
     }

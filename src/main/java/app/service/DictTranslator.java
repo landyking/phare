@@ -36,14 +36,10 @@ public class DictTranslator {
         final String val = Texts.toString(v);
         String cacheKey = Joiner.on('#').join(dictKey, val, failUseOriginal);
         org.springframework.cache.Cache cache = cacheManager.getCache(DICT_TRANSLATOR);
-        return cache.get(cacheKey, new Callable<String>() {
-            @Override
-            public String call() throws Exception {
-                return doTranslate(dictKey, val, failUseOriginal);
-            }
-        });
+        return cache.get(cacheKey, () -> doTranslate(dictKey, val, failUseOriginal));
     }
 
+    @SuppressWarnings("unchecked")
     public List<DictItem> listItemByDictCode(String dictKey) {
         return sql.select("dictItemEx.listItemByDictCode", DictItem.class, QuickMap.of("dictCode", dictKey));
     }
