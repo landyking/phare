@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+				         http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+				         http://www.springframework.org/schema/context
+				         http://www.springframework.org/schema/context/spring-context-4.0.xsd
+
+
+				         http://www.springframework.org/schema/aop
+				         http://www.springframework.org/schema/aop/spring-aop-4.0.xsd">
+    <!-- 2.引入jdbc.properties -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- 引入 第二个数据源配置文件-->
+    <!-- 3.1.配置dataSource -->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="connectProperties">
+            <props>
+                <prop key="remarks">true</prop>
+                <prop key="remarksReporting">true</prop>
+            </props>
+        </property>
+    </bean>
+    <bean id="sqlManager" class="org.beetl.sql.ext.spring4.CustomSqlManagerFactoryBean">
+        <property name="cs">
+            <bean class="org.beetl.sql.ext.spring4.BeetlSqlDataSource">
+                <property name="masterSource" ref="dataSource"></property>
+            </bean>
+        </property>
+        <property name="sqlLoader">
+            <bean class="org.beetl.sql.core.ClasspathLoader">
+                <property name="sqlRoot" value="/sql"></property>
+            </bean>
+        </property>
+        <property name="nc">
+            <bean class="org.beetl.sql.core.UnderlinedNameConversion"/>
+        </property>
+        <property name="interceptors">
+            <list>
+                <bean class="org.beetl.sql.ext.DebugInterceptor"></bean>
+            </list>
+        </property>
+    </bean>
+    <bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+    <bean id="transactionTemplate" class="org.springframework.transaction.support.TransactionTemplate">
+        <property name="transactionManager" ref="dataSourceTransactionManager"/>
+    </bean>
+</beans>

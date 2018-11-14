@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+    <!-- Realm实现 -->
+    <bean id="userRealm" class="app.shiro.MyRealm">
+        <property name="credentialsMatcher" ref="passwordMatcher"/>
+        <property name="sqlManager" ref="sqlManager"/>
+    </bean>
+    <bean id="passwordMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <property name="hashAlgorithmName" value="MD5"/>
+        <property name="hashIterations" value="2"/>
+    </bean>
+    <!-- 会话DAO -->
+    <bean id="sessionDAO"
+          class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="activeSessionsCache"/>
+    </bean>
+
+    <!-- 会话管理器 -->
+    <bean id="sessionManager" class="app.common.shiro.MySessionManager">
+        <property name="globalSessionTimeout" value="43200000"/>
+        <property name="deleteInvalidSessions" value="true"/>
+        <property name="sessionValidationSchedulerEnabled" value="true"/>
+        <property name="sessionDAO" ref="sessionDAO"/>
+    </bean>
+    <!-- 安全管理器 -->
+    <bean id="securityManager" class="app.common.shiro.MyWebSecurityManager">
+        <property name="realms">
+            <list>
+                <ref bean="userRealm"/>
+            </list>
+        </property>
+        <property name="sessionManager" ref="sessionManager"/>
+    </bean>
+    <!-- 相当于调用SecurityUtils.setSecurityManager(securityManager) -->
+    <bean class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod"
+                  value="org.apache.shiro.SecurityUtils.setSecurityManager"/>
+        <property name="arguments" ref="securityManager"/>
+    </bean>
+    <!-- Shiro生命周期处理器-->
+    <bean id="lifecycleBeanPostProcessor"
+          class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+
+    <bean id="h5Filter" class="app.common.shiro.UserTypeAccessControlFilter">
+        <property name="userMode">
+            <util:constant static-field="app.common.shiro.MyUser.MODE_H5"/>
+        </property>
+    </bean>
+    <bean id="adminFilter" class="app.common.shiro.UserTypeAccessControlFilter">
+        <property name="userMode">
+            <util:constant static-field="app.common.shiro.MyUser.MODE_ADMIN"/>
+        </property>
+    </bean>
+
+    <!-- Shiro的Web过滤器 -->
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 默认的登陆访问url -->
+        <property name="loginUrl" value="/login.jsp"/>
+        <property name="filters">
+            <util:map>
+                <entry key="h5" value-ref="h5Filter"/>
+                <entry key="admin" value-ref="adminFilter"/>
+            </util:map>
+        </property>
+        <property name="filterChainDefinitions">
+            <value>
+                /admin/login = anon
+                /weixin/api/** = h5
+                /_admin/**= admin
+                /admin/**= admin
+            </value>
+        </property>
+    </bean>
+
+</beans>
