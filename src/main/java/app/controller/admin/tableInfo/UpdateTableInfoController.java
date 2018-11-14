@@ -20,15 +20,13 @@ public class UpdateTableInfoController extends AdminController {
         String id=superParam.needParam("id",String.class);
         String projectId=superParam.needParam("projectId",String.class);
         String name=superParam.needParam("name",String.class);
-        String description=superParam.needParam("description",String.class);
-        Date createTime=superParam.needParam("createTime",Date.class);
+        String description=superParam.getParam("description",String.class);
 
         TableInfo one=new TableInfo();
         one.setId(id);
         one.setProjectId(projectId);
         one.setName(name);
         one.setDescription(description);
-        one.setCreateTime(createTime);
 
         int i=sql.updateTemplateById(one);
         Assert.isTrue(i > 0, "无效更新");

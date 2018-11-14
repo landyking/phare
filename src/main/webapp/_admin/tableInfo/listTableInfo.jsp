@@ -53,7 +53,7 @@
                 <button class="layui-btn layui-btn-danger layui-btn-sm"
                         lay-data="{url:'admin/tableInfo/deleteTableInfo',params:{id:'?'}" lay-event="ajax">删除
                 </button>
-                <button class="layui-btn layui-btn-sm" lay-event="test1">test1</button>
+                <%--<button class="layui-btn layui-btn-sm" lay-event="test1">test1</button>--%>
             </div>
         </script>
         <script type="text/html" id="tableRowMenu">
@@ -62,7 +62,7 @@
             <a class="layui-btn layui-btn-danger layui-btn-xs"
                lay-data="{url:'admin/tableInfo/deleteTableInfo',params:{id:'?'}}" lay-event="ajax">删除</a>
             <a class="layui-btn  layui-btn-xs" lay-event="dialog"
-               lay-data="{url:'_admin/tableColumn/listTableColumn.jsp',max:true,params:{id:'?',code:'?'}}">列管理</a>
+               lay-data="{url:'_admin/tableColumn/listTableColumn.jsp',max:true,params:{id:'?',code:'?'},title:arguments[0].code+' 下属列信息'}">列管理</a>
         </script>
     </div>
 </div>
@@ -79,13 +79,13 @@
                     {type: 'numbers', fixed: true},
                     //{checkbox: true, fixed: true},
                     {field: 'id', title: 'ID', hide:true},
+                    {field: 'name', title: '名称', width: 170},
                     {field: 'code', title: '编码', width: 150},
-                    {field: 'projectName', title: '所属工程', width: 180},
+                    {field: 'columnCount', title: '字段',width:60},
                     {field: 'projectId', title: '所属工程', hide: true},
-                    {field: 'name', title: '名称', width: 200},
+                    {field: 'projectName', title: '所属工程', width: 150},
                     {field: 'description', title: '描述'},
-                    {field: 'columnCount', title: '字段数量'},
-                    {field: 'createTime', title: '创建时间', width: 160},
+                    {field: 'createTime', title: '创建时间', width: 160,hide:true},
                     {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 180}
                 ]]
             },

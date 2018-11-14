@@ -7,7 +7,9 @@ import app.common.web.SuperParam;
 import app.controller.admin.AdminController;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import gen.*;
+
 import java.util.*;
+
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,20 +19,23 @@ public class LoadTableInfoController extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
-        String id=superParam.needParam("id",String.class);
+        String id = superParam.needParam("id", String.class);
 
-        TableInfo one=new TableInfo();
+        TableInfo one = new TableInfo();
         one.setId(id);
 
         TableInfo out = sql.templateOne(one);
         Assert.notNull(out, "数据不存在");
         ObjectNode data = QuickJson.newObject();
-        data.putPOJO("id",out.getId());
-        data.putPOJO("projectId",out.getProjectId());
-        data.putPOJO("name",out.getName());
-        data.putPOJO("description",out.getDescription());
-        data.putPOJO("createTime",out.getCreateTime());
-        return jsonResultSuccess("data",data);
+        data.putPOJO("id", out.getId());
+        data.putPOJO("code", out.getCode());
+        Optional<Project> project = Optional.ofNullable(sql.single(Project.class, out.getProjectId()));
+        data.putPOJO("projectId", out.getProjectId());
+        data.putPOJO("projectName", project.map(Project::getName).orElse(""));
+        data.putPOJO("name", out.getName());
+        data.putPOJO("description", out.getDescription());
+        data.putPOJO("createTime", DateTimeTool.toFullString(out.getCreateTime()));
+        return jsonResultSuccess("data", data);
     }
 }
 
