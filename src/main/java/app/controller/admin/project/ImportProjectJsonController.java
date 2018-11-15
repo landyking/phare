@@ -23,7 +23,7 @@ import java.util.StringJoiner;
 import java.util.stream.Collectors;
 
 @Component
-public class ImportProjectController extends AdminController {
+public class ImportProjectJsonController extends AdminController {
     @Resource
     private TransactionTemplate transactionTemplate;
 

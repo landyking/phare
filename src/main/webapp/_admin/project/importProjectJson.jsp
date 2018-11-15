@@ -49,7 +49,7 @@
         var form = layui.form;
         hyForm.render({
             loadUrl: null,
-            saveUrl: 'admin/project/importProject',
+            saveUrl: 'admin/project/importProjectJson',
             afterLoad: function (layFilter) {
                 //custom init code
             }

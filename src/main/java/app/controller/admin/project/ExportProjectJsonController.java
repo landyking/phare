@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.function.Consumer;
 
 @Component
-public class ExportProjectController extends AdminController {
+public class ExportProjectJsonController extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {

@@ -54,8 +54,18 @@
                 <button class="layui-btn layui-btn-sm layui-btn-normal" lay-data="{url:'_admin/project/addProject.jsp'}"
                         lay-event="dialog">新增
                 </button>
-                <button class="layui-btn layui-btn-sm layui-btn" lay-data="{url:'_admin/project/importProject.jsp'}"
-                        lay-event="dialog">导入
+                <button class="layui-btn layui-btn-sm layui-btn" lay-event="openWindow"
+                        lay-data="{url:'admin/project/exportProjectJson',params:{id:'?'}}">导出JSON
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn" lay-event="openWindow"
+                        lay-data="{url:'admin/project/exportProjectSql',params:{id:'?'}}">导出SQL
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn-danger"
+                        lay-data="{url:'_admin/project/importProjectJson.jsp'}"
+                        lay-event="dialog">导入JSON
+                </button>
+                <button class="layui-btn layui-btn-sm layui-btn" lay-event="openWindow"
+                        lay-data="{url:'_admin/project/projectTableListPreview.jsp',params:{id:'?'}}">全部预览
                 </button>
             </div>
         </script>
@@ -64,8 +74,6 @@
                lay-data="{url:'_admin/project/updateProject.jsp',params:{id:'?'}}">编辑</a>
             <a class="layui-btn layui-btn-danger layui-btn-xs"
                lay-data="{url:'admin/project/deleteProject',params:{id:'?'}}" lay-event="ajax">删除</a>
-            <a class="layui-btn  layui-btn-xs" lay-event="openWindow"
-               lay-data="{url:'admin/project/exportProject',params:{id:'?'}}">导出</a>
         </script>
     </div>
 </div>
@@ -80,13 +88,13 @@
                 url: 'admin/project/listProject',
                 cols: [[
                     {type: 'numbers', fixed: true},
-                    //{checkbox: true, fixed: true},
+                    {checkbox: true, fixed: true},
                     {field: 'id', title: 'ID', hide: true},
                     {field: 'code', title: '编码', width: 150},
                     {field: 'name', title: '名称'},
                     {field: 'description', title: '描述'},
                     {field: 'createTime', title: '创建时间'},
-                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 160}
+                    {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 120}
                 ]]
             },
             toolbarListener: {
