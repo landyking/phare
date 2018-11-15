@@ -3,79 +3,75 @@
 <html lang="zh">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
     <base href="<%=request.getContextPath()+"/"%>"/>
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/common.css">
-    <style type="text/css">
-        .layui-form-label {
-            width: 85px;
-        }
-
-        .layui-input-block {
-            margin-left: 115px;
-        }
-    </style>
 </head>
 <body>
-<form class="layui-form" lay-filter="dataForm">
-    <input type="hidden" name="id">
-    <div class="layui-form-item">
-        <label class="layui-form-label">编码</label>
-        <div class="layui-input-block">
-            <input type="text" name="id" required lay-verify="required" autocomplete="off" class="layui-input" readonly>
-
-        </div>
+<div class="layui-card">
+    <div class="layui-card-header" id="show-title"></div>
+    <div class="layui-card-body " id="show-container">
     </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">名称</label>
-        <div class="layui-input-block">
-            <input type="text" name="name" required lay-verify="required" autocomplete="off" class="layui-input">
-
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">描述</label>
-        <div class="layui-input-block">
-
-             <textarea name="description" required lay-verify="required" autocomplete="off" class="layui-textarea"></textarea>
-
-        </div>
-    </div>
-    <div class="layui-form-item">
-        <label class="layui-form-label">创建时间</label>
-        <div class="layui-input-block">
-            <input type="text" name="createTime" required lay-verify="required" autocomplete="off" class="layui-input" readonly>
-
-        </div>
-    </div>
-    <hr/>
-    <div class="layui-form-item" style="text-align: center;">
-        <button class="layui-btn" lay-submit lay-filter="save">提交</button>
-        <button class="layui-btn layui-btn-primary hy-close-window">关闭</button>
-    </div>
-</form>
-
+</div>
 </body>
+<script id="tpl" type="text/html">
+    {{#  layui.each(d.tables, function(index, item){ }}
+    <fieldset class="layui-elem-field layui-field-title">
+        <legend>{{ item.name }} - {{ item.code }}</legend>
+        <div class="layui-field-box">
+            <span>{{ item.description }}</span>
+            <table class="layui-table" lay-size="sm">
+                <colgroup>
+                    <col width="150">
+                    <col width="200">
+                    <col width="150">
+                    <col width="100">
+                    <col width="100">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th>编码</th>
+                    <th>名称</th>
+                    <th>类型</th>
+                    <th>可空</th>
+                    <th>主键</th>
+                </tr>
+                </thead>
+                <tbody>
+                {{# layui.each(item.columns, function(index, col){ }}
+                <tr>
+                    <td>{{ col.code }}</td>
+                    <td>{{ col.name }}</td>
+                    <td>{{ col.dbType + "(" + col.typeLength + ")" }}</td>
+                    <td>{{ col.nullableFlag==1?'是':'' }}</td>
+                    <td>{{ col.pkFlag==1?'是':'' }}</td>
+                </tr>
+                {{# }); }}
+                </tbody>
+            </table>
+        </div>
+    </fieldset>
+    {{#  }); }}
+</script>
 <script src="static/layui/layui.js"></script>
 <script src="static/js/layui.config.js"></script>
 <script>
-    layui.use(['jquery', 'hyForm', 'form', 'common', "hyUtil"], function () {
+    layui.use(['jquery', "hyUtil", 'laytpl'], function () {
         var $ = layui.$;
-        var hyForm = layui.hyForm;
-        var form = layui.form;
-        hyForm.render({
-            loadUrl: "admin/project/loadProject?id=" + hy.getURLParam("id"),
-            saveUrl: 'admin/project/updateProject',
-            afterLoad: function (layFilter, data) {
-                //custom init code
-            }
-        });
+        var laytpl = layui.laytpl;
+        var projectId = hy.getURLParam("id");
+        $.post("admin/project/exportProjectJson", {id: projectId}, function (rst) {
+            $("#show-title").text(rst.name + "("+rst.code+") - " + rst.description);
+            laytpl($("#tpl").html()).render(rst, function (html) {
+                $("#show-container").html(html);
+            });
+        })
     });
 </script>
 </html>
