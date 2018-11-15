@@ -40,7 +40,8 @@ layui.define(['hyUtil', 'form', 'layer', 'element', 'laydate'], function (export
                         labelField: 'label',
                         valueField: 'value',
                         firstEmpty: false,
-                        firstEmptyLabel: '---'
+                        firstEmptyLabel: '---',
+                        defVal:null
                     }, new Function('return ' + ld)());
                     var promise = $.get(hyForm.remoteSelectUrl + config.url, function (rst) {
                         if (rst.code === 0) {
@@ -51,7 +52,11 @@ layui.define(['hyUtil', 'form', 'layer', 'element', 'laydate'], function (export
                             $.each(rst.data, function (idx, one) {
                                 var label = one[config.labelField];
                                 var value = one[config.valueField];
-                                me.append('<option value="' + value + '">' + label + '</option>');
+                                var optional="";
+                                if(config.defVal && value==config.defVal){
+                                    optional=' selected="true" ';
+                                }
+                                me.append('<option value="' + value + '" '+optional+'>' + label + '</option>');
                             });
                         } else {
                             hy.msg("加载下拉数据失败:" + rst.msg);

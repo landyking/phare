@@ -18,12 +18,14 @@ public class UpdateTableInfoController extends AdminController {
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
         String id=superParam.needParam("id",String.class);
+        String code=superParam.needParam("code",String.class);
         String projectId=superParam.needParam("projectId",String.class);
         String name=superParam.needParam("name",String.class);
         String description=superParam.getParam("description",String.class);
 
         TableInfo one=new TableInfo();
         one.setId(id);
+        one.setCode(code);
         one.setProjectId(projectId);
         one.setName(name);
         one.setDescription(description);

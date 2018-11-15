@@ -60,7 +60,7 @@
         <label class="layui-form-label">可空</label>
         <div class="layui-input-block">
             <select name="nullableFlag" lay-verify="required" class="hy-select" lay-filter="nullableFlag"
-                    lay-data="{url:'admin/dict/listSelectItem?dictCode=yesOrNo'}"></select>
+                    lay-data="{url:'admin/dict/listSelectItem?dictCode=yesOrNo',defVal:'1'}"></select>
         </div>
     </div>
     <div class="layui-form-item">

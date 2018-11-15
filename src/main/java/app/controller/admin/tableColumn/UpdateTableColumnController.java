@@ -13,7 +13,7 @@ public class UpdateTableColumnController extends AdminController {
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
         String id = superParam.needParam("id", String.class);
-//        String tableId = superParam.needParam("tableId", String.class);
+        String code = superParam.needParam("code", String.class);
         String name = superParam.needParam("name", String.class);
         String description = superParam.getParam("description", String.class);
         Integer nullableFlag = superParam.needParam("nullableFlag", Integer.class);
@@ -28,7 +28,7 @@ public class UpdateTableColumnController extends AdminController {
 
         TableColumn one = new TableColumn();
         one.setId(id);
-//        one.setTableId(tableId);
+        one.setCode(code);
         one.setName(name);
         one.setDescription(description);
         one.setNullableFlag(nullableFlag);
