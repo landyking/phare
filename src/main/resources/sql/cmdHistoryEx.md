@@ -7,25 +7,25 @@ listPageData
     from T_CMD_HISTORY t
     left join t_device d on t.device_id = d.id
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     @}
-    @if(!isEmpty(receiveTime)){
+    @if(hasValue(receiveTime)){
     and t.RECEIVE_TIME = #receiveTime#
     @}
-    @if(!isEmpty(content)){
+    @if(hasValue(content)){
     and t.CONTENT like #'%'+content+'%'#
     @}
-    @if(!isEmpty(responseTime)){
+    @if(hasValue(responseTime)){
     and t.RESPONSE_TIME = #responseTime#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     @}
-    @if(!isEmpty(name)){
+    @if(hasValue(name)){
     and d.NAME like #'%'+name+'%'#
     @}
-    @if(!isEmpty(devNo)){
+    @if(hasValue(devNo)){
     and d.DEV_NO like #'%'+devNo+'%'#
     @}
     @pageIgnoreTag(){

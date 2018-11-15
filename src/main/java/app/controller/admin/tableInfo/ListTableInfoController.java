@@ -10,6 +10,7 @@ import gen.*;
 
 import java.util.*;
 
+import org.beetl.sql.core.engine.CustomPageQuery;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.ModelAndView;
 import org.beetl.sql.core.engine.PageQuery;
@@ -19,9 +20,7 @@ public class ListTableInfoController extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
-        Integer page = superParam.getParam("page", Integer.class, 1);
-        Integer limit = superParam.getParam("limit", Integer.class, 10);
-        PageQuery<TableInfo> query = new PageQuery<>(page.longValue(), limit.longValue());
+        PageQuery<TableInfo> query = new CustomPageQuery<>(superParam);
         PageQuery<TableInfo> pageData = sql.pageQuery("tableInfoEx.listPageData", TableInfo.class, query);
         ObjectNode rst = QuickJson.newObject();
         rst.put("code", 0);

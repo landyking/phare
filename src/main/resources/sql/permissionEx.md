@@ -5,23 +5,23 @@ listPermission
     t.*
     @}
 	from T_PERMISSION  t
-	@if(!isEmpty(roleId)){
+	@if(hasValue(roleId)){
 	left join t_role_permission rp on rp.permission_id = t.id
 	@}
 	where 1=1
-	@if(!isEmpty(roleId)){
+	@if(hasValue(roleId)){
 	 and rp.role_id = #roleId#
 	@}
-	@if(!isEmpty(id)){
+	@if(hasValue(id)){
 	 and t.ID = #id#
 	@}	
-	@if(!isEmpty(useFlag)){
+	@if(hasValue(useFlag)){
 	 and t.use_flag = #useFlag#
 	@}
-	@if(!isEmpty(pid)){
+	@if(hasValue(pid)){
 	 and t.pid = #pid#
 	@}
-	@if(!isEmpty(name)){
+	@if(hasValue(name)){
 	 and t.NAME like #'%'+name+'%'#
 	@}
     @pageIgnoreTag(){

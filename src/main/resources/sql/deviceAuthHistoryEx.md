@@ -7,25 +7,25 @@ listPageData
     from T_DEVICE_AUTH_HISTORY t
     left join t_device d on d.id = t.device_id
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     @}
-    @if(!isEmpty(deviceId)){
+    @if(hasValue(deviceId)){
     and t.DEVICE_ID = #deviceId#
     @}
-    @if(!isEmpty(reportFlag)){
+    @if(hasValue(reportFlag)){
     and t.REPORT_FLAG = #reportFlag#
     @}
-    @if(!isEmpty(successFlag)){
+    @if(hasValue(successFlag)){
     and t.SUCCESS_FLAG = #successFlag#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     @}
-    @if(!isEmpty(name)){
+    @if(hasValue(name)){
     and d.NAME like #'%'+name+'%'#
     @}
-    @if(!isEmpty(devNo)){
+    @if(hasValue(devNo)){
     and d.DEV_NO like #'%'+devNo+'%'#
     @}
     @pageIgnoreTag(){

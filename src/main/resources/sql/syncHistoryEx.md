@@ -6,28 +6,28 @@ listPageData
     @}
     from T_SYNC_HISTORY t
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     @}
-    @if(!isEmpty(dataType)){
+    @if(hasValue(dataType)){
     and t.data_type = #dataType#
     @}
-    @if(!isEmpty(triggerType)){
+    @if(hasValue(triggerType)){
     and t.trigger_type = #triggerType#
     @}
-    @if(!isEmpty(updateCount)){
+    @if(hasValue(updateCount)){
     and t.UPDATE_COUNT = #updateCount#
     @}
-    @if(!isEmpty(latestTime)){
+    @if(hasValue(latestTime)){
     and t.LATEST_TIME = #latestTime#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     @}
-    @if(!isEmpty(dateMin)){
+    @if(hasValue(dateMin)){
     and t.CREATE_TIME >= #dateMin.time#
     @}
-    @if(!isEmpty(dateMax)){
+    @if(hasValue(dateMax)){
     and t.CREATE_TIME < #nextDay(dateMax.time)#
     @}
     @pageIgnoreTag(){

@@ -6,34 +6,34 @@ listPageData
     @}
     from T_DEVICE t
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     @}
-    @if(!isEmpty(name)){
+    @if(hasValue(name)){
     and t.NAME like #'%'+name+'%'#
     @}
-    @if(!isEmpty(type)){
+    @if(hasValue(type)){
     and t.TYPE = #type#
     @}
-    @if(!isEmpty(devNo)){
+    @if(hasValue(devNo)){
     and t.DEV_NO like #'%'+devNo+'%'#
     @}
-    @if(!isEmpty(authType)){
+    @if(hasValue(authType)){
     and t.AUTH_TYPE = #authType#
     @}
-    @if(!isEmpty(certificate)){
+    @if(hasValue(certificate)){
     and t.CERTIFICATE = #certificate#
     @}
-    @if(!isEmpty(enableFlag)){
+    @if(hasValue(enableFlag)){
     and t.ENABLE_FLAG = #enableFlag#
     @}
-    @if(!isEmpty(deleteFlag)){
+    @if(hasValue(deleteFlag)){
     and t.DELETE_FLAG = #deleteFlag#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     @}
-    @if(!isEmpty(updateTime)){
+    @if(hasValue(updateTime)){
     and t.UPDATE_TIME = #updateTime#
     @}
     @pageIgnoreTag(){

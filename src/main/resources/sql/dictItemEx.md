@@ -26,10 +26,10 @@ listItemByDictId
 	@}
 	from T_DICT_ITEM t
 	where t.dict_id = #id#
-	@if(!isEmpty(code)){
+	@if(hasValue(code)){
 	 and CODE like #'%'+code+'%'#
 	@}
-	@if(!isEmpty(content)){
+	@if(hasValue(content)){
 	 and content like #'%'+content+'%'#
 	@}
 	@pageIgnoreTag(){

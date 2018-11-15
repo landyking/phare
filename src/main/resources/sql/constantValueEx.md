@@ -7,22 +7,22 @@ listPageData
     from T_PHARE_CONSTANT_VALUE t
     left join t_phare_constant c on t.constant_id=c.id
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     and t.ID like #'%'+id+'%'#
     @}
-    @if(!isEmpty(constantId)){
+    @if(hasValue(constantId)){
     and t.CONSTANT_ID = #constantId#
     @}
-    @if(!isEmpty(name)){
+    @if(hasValue(name)){
     and t.NAME = #name#
     and t.NAME like #'%'+name+'%'#
     @}
-    @if(!isEmpty(description)){
+    @if(hasValue(description)){
     and t.DESCRIPTION = #description#
     and t.DESCRIPTION like #'%'+description+'%'#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     and t.CREATE_TIME like #'%'+createTime+'%'#
     @}

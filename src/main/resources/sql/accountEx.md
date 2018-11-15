@@ -8,13 +8,13 @@ listAccount
     @}
 	from T_ACCOUNT t 
 	where t.delete_flag=0
-	@if(!isEmpty(username)){
+	@if(hasValue(username)){
 	 and t.USERNAME like #'%'+username+'%'#
 	@}
-	@if(!isEmpty(description)){
+	@if(hasValue(description)){
      and t.description like #'%'+description+'%'#
     @}
-	@if(!isEmpty(enableFlag)){
+	@if(hasValue(enableFlag)){
 	 and t.ENABLE_FLAG=#enableFlag#
 	@}
     @pageIgnoreTag(){

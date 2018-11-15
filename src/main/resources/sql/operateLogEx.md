@@ -7,19 +7,19 @@ listOperateLog
 	from T_OPERATE_LOG t 
 	left join t_account a on t.operator = a.id
 	where 1=1
-	@if(!isEmpty(type)){
+	@if(hasValue(type)){
 	 and t.TYPE = #type#
 	@}
-	@if(!isEmpty(description)){
+	@if(hasValue(description)){
 	 and t.DESCRIPTION like #'%'+description+'%'#
 	@}
-	@if(!isEmpty(username)){
+	@if(hasValue(username)){
 	 and a.username like #'%'+username+'%'#
 	@}
-    @if(!isEmpty(dateMin)){
+    @if(hasValue(dateMin)){
         and t.create_time >= #dateMin#
     @}
-    @if(!isEmpty(dateMax)){
+    @if(hasValue(dateMax)){
         and t.create_time < #nextDay(dateMax)#
     @}
 	@pageIgnoreTag(){

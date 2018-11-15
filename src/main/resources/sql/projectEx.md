@@ -6,20 +6,20 @@ listPageData
     @}
     from T_PHARE_PROJECT t
     where 1=1
-    @if(!isEmpty(id)){
+    @if(hasValue(id)){
     and t.ID = #id#
     and t.ID like #'%'+id+'%'#
     @}
-    @if(!isEmpty(code)){
+    @if(hasValue(code)){
     and t.code like #'%'+code+'%'#
     @}
-    @if(!isEmpty(name)){
+    @if(hasValue(name)){
     and t.NAME like #'%'+name+'%'#
     @}
-    @if(!isEmpty(description)){
+    @if(hasValue(description)){
     and t.DESCRIPTION like #'%'+description+'%'#
     @}
-    @if(!isEmpty(createTime)){
+    @if(hasValue(createTime)){
     and t.CREATE_TIME = #createTime#
     and t.CREATE_TIME like #'%'+createTime+'%'#
     @}

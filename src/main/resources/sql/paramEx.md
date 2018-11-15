@@ -7,10 +7,10 @@ listParam
 	from T_PARAM t 
 	where
 	delete_flag=0
-	@if(!isEmpty(code)){
+	@if(hasValue(code)){
 	 and CODE like #'%'+code+'%'#
 	@}
-	@if(!isEmpty(description)){
+	@if(hasValue(description)){
 	 and DESCRIPTION like #'%'+description+'%'#
 	@}
 	@pageIgnoreTag(){

@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.Map;
 
 /**
- * 判断全局变量是否为“空”，下列情况属于为空·的情况，返回true
+ * 判断全局变量是否为不为“空”，下列情况属于为空·的情况，返回false
  * <ul>
  * <p>
  * <li>变量不存在</li>
@@ -22,10 +22,14 @@ import java.util.Map;
  *
  * @author joelli
  */
-public class MyEmptyExpressionFunction implements Function {
+public class HasValueExpressionFunction implements Function {
 
     public Boolean call(Object[] paras, Context ctx) {
+        return !doWork(paras);
 
+    }
+
+    private Boolean doWork(Object[] paras) {
         if (paras.length == 0)
             return true;
         Object result = paras[0];
@@ -60,7 +64,6 @@ public class MyEmptyExpressionFunction implements Function {
         }
 
         return true;
-
     }
 
 }
