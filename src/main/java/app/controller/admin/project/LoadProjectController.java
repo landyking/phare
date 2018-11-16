@@ -26,6 +26,7 @@ public class LoadProjectController extends AdminController {
         Assert.notNull(out, "数据不存在");
         ObjectNode data = QuickJson.newObject();
         data.putPOJO("id",out.getId());
+        data.putPOJO("code",out.getCode());
         data.putPOJO("name",out.getName());
         data.putPOJO("description",out.getDescription());
         data.putPOJO("createTime",DateTimeTool.toFullString(out.getCreateTime()));

@@ -20,11 +20,13 @@ public class UpdateProjectController extends AdminController {
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
         String id = superParam.needParam("id", String.class);
+        String code = superParam.needParam("code", String.class);
         String name = superParam.needParam("name", String.class);
-        String description = superParam.needParam("description", String.class);
+        String description = superParam.getParam("description", String.class);
 
         Project one = new Project();
         one.setId(id);
+        one.setCode(code);
         one.setName(name);
         one.setDescription(description);
 

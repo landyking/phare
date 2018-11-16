@@ -28,7 +28,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">编码</label>
         <div class="layui-input-block">
-            <input type="text" name="id" required lay-verify="required" autocomplete="off" class="layui-input" readonly>
+            <input type="text" name="code" required lay-verify="required" autocomplete="off" class="layui-input">
 
         </div>
     </div>
