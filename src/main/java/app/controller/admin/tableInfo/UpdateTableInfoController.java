@@ -19,6 +19,7 @@ public class UpdateTableInfoController extends AdminController {
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
         String id=superParam.needParam("id",String.class);
         String code=superParam.needParam("code",String.class);
+        Assert.isTrue(code.length()<30,"编码过长");
         String projectId=superParam.needParam("projectId",String.class);
         String name=superParam.needParam("name",String.class);
         String description=superParam.getParam("description",String.class);

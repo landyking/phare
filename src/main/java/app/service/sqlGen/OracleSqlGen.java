@@ -1,5 +1,6 @@
 package app.service.sqlGen;
 
+import app.common.DateTimeTool;
 import app.common.Texts;
 import com.google.common.collect.LinkedHashMultimap;
 import org.springframework.util.Assert;
@@ -17,7 +18,7 @@ public class OracleSqlGen extends SqlGen {
     protected void genUniqueKeySql(StringBuilder sb, String tableName, LinkedHashMultimap<String, String> uniqueCols) throws InterruptedException {
         for (String key : uniqueCols.keySet()) {
             Set<String> cols = uniqueCols.get(key);
-            String label = "unique_" + key + "_" + Long.toHexString(System.currentTimeMillis());
+            String label = "unique_" /*+ tableName+"_"+key + "_"*/ + Long.toHexString(DateTimeTool.nextMillis());
             sb.append("alter table " + tableName + " add constraint " + label + " unique(" + Texts.joinCollection(cols) + ");\r\n");
             TimeUnit.MILLISECONDS.sleep(10);
         }
@@ -31,7 +32,7 @@ public class OracleSqlGen extends SqlGen {
 
     @Override
     protected void genPrimaryKeySql(StringBuilder sb, String tableName, Set<String> primaryKeyNames) {
-        String label = "pk_" + tableName + "_" + Long.toHexString(System.currentTimeMillis());
+        String label = "pk_" /*+ tableName + "_"*/ + Long.toHexString(DateTimeTool.nextMillis());
         String columns = Texts.joinCollection(primaryKeyNames);
         sb.append("alter table " + tableName + " add constraint " + label + " primary key (" + columns + ");\r\n");
     }

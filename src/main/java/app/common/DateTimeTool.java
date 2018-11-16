@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by landy on 2017/12/22.
@@ -270,5 +271,14 @@ public class DateTimeTool {
 
     public static String toFtmString(Long date, String fmt) {
         return DateTimeFormat.forPattern(fmt).print(date);
+    }
+
+    public static long nextMillis() {
+        try {
+            TimeUnit.MILLISECONDS.sleep(1);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return System.currentTimeMillis();
     }
 }

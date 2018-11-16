@@ -7,15 +7,17 @@
     <meta http-equiv="Pragma" content="no-cache"/>
     <meta http-equiv="Expires" content="0"/>
     <base href="<%=request.getContextPath()+"/"%>"/>
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="static/layui/css/layui.css">
-    <link rel="stylesheet" href="static/css/common.css">
+    <%--<meta name="viewport"--%>
+          <%--content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">--%>
+    <%--<meta http-equiv="X-UA-Compatible" content="ie=edge">--%>
+    <%--<link rel="stylesheet" href="static/layui/css/layui.css">--%>
+    <%--<link rel="stylesheet" href="static/css/common.css">--%>
 </head>
 <body>
 <div class="layui-card">
-    <div class="layui-card-header" id="show-title"></div>
+    <div class="layui-card-header" id="show-title">
+    </div>
+    <hr>
     <div class="layui-card-body " id="show-container">
     </div>
 </div>
@@ -26,7 +28,7 @@
         <legend>{{ item.name }} - {{ item.code }}</legend>
         <div class="layui-field-box">
             <span>{{ item.description }}</span>
-            <table class="layui-table" lay-size="sm">
+            <table class="layui-table" lay-size="sm" border="1">
                 <colgroup>
                     <col width="150">
                     <col width="200">
@@ -67,11 +69,11 @@
         var laytpl = layui.laytpl;
         var projectId = hy.getURLParam("id");
         $.post("admin/project/exportProjectJson", {id: projectId}, function (rst) {
-            $("#show-title").text(rst.name + "("+rst.code+") - " + rst.description);
+            $("#show-title").text(rst.name + "(" + rst.code + ") - " + rst.description);
             laytpl($("#tpl").html()).render(rst, function (html) {
                 $("#show-container").html(html);
             });
-        })
+        });
     });
 </script>
 </html>
