@@ -24,6 +24,8 @@ public class UpdateProjectController extends AdminController {
         String name = superParam.needParam("name", String.class);
         String description = superParam.getParam("description", String.class);
 
+        long exist = sql.lambdaQuery(Project.class).andEq(Project::getCode, code).andNotEq(Project::getId, id).count();
+        Assert.isTrue(exist<=0,"编码重复");
         Project one = new Project();
         one.setId(id);
         one.setCode(code);

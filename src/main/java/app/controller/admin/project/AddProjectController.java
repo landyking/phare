@@ -11,6 +11,7 @@ import gen.*;
 import java.util.*;
 
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
@@ -23,7 +24,8 @@ public class AddProjectController extends AdminController {
         String name = superParam.needParam("name", String.class);
         String description = superParam.needParam("description", String.class);
         Date createTime = DateTimeTool.now();
-
+        long exist = sql.lambdaQuery(Project.class).andEq(Project::getCode, code).count();
+        Assert.isTrue(exist <= 0, "编码重复");
         Project one = new Project();
         one.setId(id);
         one.setCode(code);

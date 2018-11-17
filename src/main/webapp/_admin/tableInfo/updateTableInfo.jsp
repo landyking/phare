@@ -82,6 +82,12 @@
             saveUrl: 'admin/tableInfo/updateTableInfo',
             afterLoad: function (layFilter, data) {
                 //custom init code
+                $("#lookupProject").click(function () {
+                    hy.popup.openSelectOne({
+                        "id": "input[name=projectId]",
+                        "name": "input[name=projectName]"
+                    }, "选择工程", "_admin/project/lookupProject.jsp", 800, 600)
+                });
             }
         });
     });
