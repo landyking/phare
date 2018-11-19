@@ -18,7 +18,6 @@ public enum OperateLogType {
     adminLogout(4),
 
 
-
     /**
      * 修改参数
      */
@@ -86,7 +85,19 @@ public enum OperateLogType {
     /**
      * 将权限授予角色
      */
-    grantPermissionToRole(99052);
+    grantPermissionToRole(99052),
+    /**
+     * 新增单位
+     */
+    addDepartment(99060),
+    /**
+     * 更新单位
+     */
+    updateDepartment(99061),
+    /**
+     * 删除单位
+     */
+    deleteDepartment(99062);
 
     private int type;
 

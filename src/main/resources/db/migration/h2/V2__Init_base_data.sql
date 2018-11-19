@@ -1,5 +1,6 @@
 -- 默认账号 admin 000000
-insert into t_account (id,username,password,last_login_ip,last_login_time,enable_flag,delete_flag) values ('1','admin','f902353066c4a8203a742a4978dc92f2','127.0.0.1',null,1,0);
+insert into t_account (id,username,password,last_login_ip,last_login_time,enable_flag,delete_flag)
+values ('1','admin','f902353066c4a8203a742a4978dc92f2','127.0.0.1',null,1,0);
 
 insert into t_dict (id,code,description,delete_flag,create_time,update_time) values ('1','yesOrNo','是否标记',0,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values ('11','1','0','否',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
@@ -30,6 +31,9 @@ insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999050','9','99050','新增权限',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999051','9','99051','更新权限',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999052','9','99052','将权限授予角色',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999060','9','99060','新增单位',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999061','9','99061','更新单位',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('999062','9','99062','删除单位',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1000000', '系统管理', '', '', '0', '9999', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1001000', '参数设置', '_admin/sys/paramManage.jsp', 'layui-icon-set', 'p1000000', '1', CURRENT_TIMESTAMP(), '1', '0');
@@ -38,6 +42,7 @@ insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003010', '后台账户', '_admin/sys/adminUserManage.jsp', 'layui-icon-user', 'p1003000', '1', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003020', '后台角色', '_admin/sys/adminRoleManage.jsp', 'layui-icon-star', 'p1003000', '2', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003030', '后台权限', '_admin/sys/adminPermissionManage.jsp', 'layui-icon-component', 'p1003000', '3', CURRENT_TIMESTAMP(), '1', '0');
+insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003040', '单位信息', '_admin/sys/listDepartment.jsp', 'layui-icon-component', 'p1003000', '4', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1004000', '日志管理', '_admin/sys/logManage.jsp', 'layui-icon-date', 'p1000000', '4', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1005000', '系统信息', '_admin/sys/systemInfo.jsp', 'layui-icon-rmb', 'p1000000', '5', CURRENT_TIMESTAMP(), '1', '0');
 

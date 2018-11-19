@@ -48,6 +48,7 @@ COMMENT ON TABLE t_param IS '参数表';
 -- 用户信息表：主键、账号、密码、最后登录时间、最后登录IP、删除标记、启用标记。
 CREATE TABLE t_account (
   ID              VARCHAR2(32) NOT NULL,
+  dep_id              VARCHAR2(32),
   description varchar2(200),
   username        VARCHAR2(64) NOT NULL,
   PASSWORD        VARCHAR2(64) NOT NULL,
@@ -134,3 +135,26 @@ COMMENT ON COLUMN T_ROLE_USER.user_id
 IS '用户id';
 COMMENT ON COLUMN T_ROLE_USER.create_time
 IS '创建时间';
+
+create table t_department (
+    address varchar2(200) NULL,
+    create_time number(20) NULL,
+    description varchar2(500) NULL,
+    id varchar2(32) NOT NULL,
+    latitude varchar2(30) NULL,
+    longitude varchar2(30) NULL,
+    name varchar2(100) NULL,
+    pid varchar2(32) NULL,
+    update_time number(20) NULL
+);
+alter table t_department add constraint pk_1672ae6a325 primary key (id);
+comment on table t_department is '单位信息表';
+comment on column t_department.address is '单位地址';
+comment on column t_department.create_time is '创建时间';
+comment on column t_department.description is '描述';
+comment on column t_department.id is '主键|单位编号';
+comment on column t_department.latitude is '纬度';
+comment on column t_department.longitude is '经度';
+comment on column t_department.name is '单位名称';
+comment on column t_department.pid is '上级单位id';
+comment on column t_department.update_time is '更新时间';

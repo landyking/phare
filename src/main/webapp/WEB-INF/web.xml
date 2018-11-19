@@ -44,6 +44,10 @@
         <servlet-name>mvc</servlet-name>
         <url-pattern>/static/layui/*</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>mvc</servlet-name>
+        <url-pattern>/static/ztree/*</url-pattern>
+    </servlet-mapping>
 
 
     <!--  字符集过滤器 -->
