@@ -25,7 +25,7 @@ listPermission
 	 and t.NAME like #'%'+name+'%'#
 	@}
     @pageIgnoreTag(){
-	order by t.id asc
+	order by t.pid asc,t.order_flag asc
 	@}
 
 listAuthPermission

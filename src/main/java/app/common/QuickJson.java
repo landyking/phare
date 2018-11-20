@@ -11,7 +11,10 @@ import gen.Project;
 import org.springframework.cglib.beans.BeanMap;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.BiConsumer;
 
 /**
@@ -128,7 +131,17 @@ public class QuickJson {
     }
 
     @SuppressWarnings("unchecked")
-    public static void fillFromPojo(ObjectNode obj, Object o) {
-        BeanMap.create(o).forEach((o1, o2) -> obj.putPOJO(o1.toString(), o2));
+    public static void fillFromPojo(ObjectNode obj, Object o, String... ignores) {
+        Set<String> igSet = new HashSet<>();
+        if (ignores != null && ignores.length > 0) {
+            Collections.addAll(igSet, ignores);
+        }
+        BeanMap.create(o).forEach((o1, o2) -> {
+
+            String k = o1.toString();
+            if (!igSet.contains(k)) {
+                obj.putPOJO(k, o2);
+            }
+        });
     }
 }
