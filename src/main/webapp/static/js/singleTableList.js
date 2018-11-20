@@ -13,6 +13,7 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
             searchExecLayFilter: 'searchExec',
             searchResetLayFilter: 'searchReset',
             layFilter: 'dataTable',
+            calcHeightOffset: 85,
             tableConfig: {
                 elem: '#dataTable',
                 height: null,
@@ -45,7 +46,7 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
             if (myCfg.searchExecLayFilter) {
                 searchHeight = $("button[lay-filter=" + myCfg.searchExecLayFilter + "]").parents('.layui-card-header').outerHeight();
             }
-            var calcHeight = fullHeight - searchHeight - 85;
+            var calcHeight = fullHeight - searchHeight - myCfg.calcHeightOffset;
             return calcHeight;
         };
         if ($.isEmptyObject(myCfg.tableConfig.height)) {
@@ -54,6 +55,9 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
         //渲染数据表格
         var stable = table.render(myCfg.tableConfig);
         $(window).resize(function () {
+            if (!$.isEmptyObject(myCfg.tableConfig.height)) {
+                return;
+            }
             if (myCfg.searchExecLayFilter) {
                 // console.log("##############");
                 var searchForm = $("button[lay-filter=" + myCfg.searchExecLayFilter + "]").parents('.layui-form');

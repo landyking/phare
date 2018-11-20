@@ -1,5 +1,6 @@
 package app.listener;
 
+import app.common.Texts;
 import com.alibaba.druid.pool.DruidDataSource;
 import org.flywaydb.core.Flyway;
 import org.springframework.util.Assert;
@@ -27,6 +28,9 @@ public class DatabaseInitListener implements ServletContextListener {
         DataSource datasource = applicationContext.getBean(flywayDataSource, DataSource.class);
         Assert.notNull(datasource, "spring容器中无法找到id为" + flywayDataSource + "的数据源");
         doDatabaseFlyway(datasource, servletContextEvent.getServletContext());
+        if (Texts.hasText(System.getProperty("dev.initTestData"))) {
+            TestDataInit.init(applicationContext);
+        }
     }
 
     public static void doDatabaseFlyway(DataSource datasource, ServletContext logger) {

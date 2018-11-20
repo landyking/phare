@@ -2,9 +2,10 @@ listPageData
 ===
     select
     @pageTag(){
-        t.*
+        t.*,t2.name as pname
     @}
     from T_DEPARTMENT t
+    left join t_department t2 on t.pid = t2.id
     where 1=1
     @if(hasValue(address)){
     and t.ADDRESS = #address#
@@ -31,12 +32,10 @@ listPageData
     and t.LONGITUDE like #'%'+longitude+'%'#
     @}
     @if(hasValue(name)){
-    and t.NAME = #name#
     and t.NAME like #'%'+name+'%'#
     @}
     @if(hasValue(pid)){
     and t.PID = #pid#
-    and t.PID like #'%'+pid+'%'#
     @}
     @if(hasValue(updateTime)){
     and t.UPDATE_TIME = #updateTime#
