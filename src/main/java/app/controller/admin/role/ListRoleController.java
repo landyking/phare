@@ -34,10 +34,6 @@ public class ListRoleController extends AdminController {
             o.putPOJO("id", one.getId());
             o.putPOJO("name", one.getName());
             o.putPOJO("createTime", DateTimeTool.toFullString(one.getCreateTime()));
-            long permissionCount = sql.query(RolePermission.class)
-                    .andEq("role_id", one.getId())
-                    .count();
-            o.put("permissionCount", permissionCount);
         }
         return jsonResult(rst);
     }

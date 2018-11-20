@@ -18,13 +18,15 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
                 elem: '#dataTable',
                 height: null,
                 page: true,
-                limit:20,
+                limit: 20,
                 toolbar: '#tableToolbar',
                 defaultToolbar: ['filter', 'print'],
                 done: function () {
                     layui.common.render();
                 }
             },
+            rowDoubleClickListener: null,
+            rowClickListener: null,
             rowMenuListener: {},
             toolbarListener: {}
         };
@@ -206,6 +208,18 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
             }
             return true;
         };
+        //注册单元格单击监听器
+        if (myCfg.rowClickListener) {
+            table.on('row(' + myCfg.layFilter + ')', function (obj) {
+                myCfg.rowClickListener(obj);
+            });
+        }
+        //注册单元格双击监听器
+        if (myCfg.rowDoubleClickListener) {
+            table.on('rowDouble(' + myCfg.layFilter + ')', function (obj) {
+                myCfg.rowDoubleClickListener(obj);
+            });
+        }
         //注册表头工具栏监听器
         if (myCfg.toolbarListener) {
             //监听头工具栏事件
