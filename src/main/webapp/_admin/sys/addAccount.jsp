@@ -38,9 +38,21 @@
         </div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">所属单位</label>
+        <div class="layui-input-inline">
+            <input type="text" name="depName" required lay-verify="required" autocomplete="off" class="layui-input"
+                   readonly>
+            <input type="hidden" name="depId" required lay-verify="required" autocomplete="off" class="layui-input">
+        </div>
+        <div class="layui-input-inline" style="width: 80px;">
+            <button type="button" class="layui-btn" id="lookupDepartment">选择
+            </button>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">描述</label>
         <div class="layui-input-block">
-            <input type="text" name="description" required lay-verify="required" autocomplete="off" class="layui-input">
+            <input type="text" name="description"  autocomplete="off" class="layui-input">
         </div>
     </div>
     <div class="layui-form-item">
@@ -70,6 +82,16 @@
             saveUrl: 'admin/account/addAccount',
             afterLoad: function (layFilter) {
                 //custom init code
+                //custom init code
+                $("#lookupDepartment").click(function () {
+                    hy.department.openSelectRadio(function (success, data, closeFn) {
+                        if (success) {
+                            $("input[name=depId]").val(data[0].id);
+                            $("input[name=depName]").val(data[0].name);
+                            closeFn();
+                        }
+                    }, {parentInclude: true});
+                });
             }
         });
     });
