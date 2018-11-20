@@ -171,7 +171,7 @@
                 if (!expandFlag) {
                     expandFlag = true;
                     var zTree = tree$.fn.zTree.getZTreeObj(treeId);
-                    var rootList = zTree.getNodes()[0].children;
+                    var rootList = zTree.getNodes();
                     //console.log(rootList);
                     $.each(rootList, function (idx, data) {
                         zTree.expandNode(data);
