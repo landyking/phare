@@ -12,6 +12,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="static/layui/css/layui.css">
     <link rel="stylesheet" href="static/css/common.css">
+    <link rel="stylesheet" href="static/ztree/zTreeStyle/zTreeStyle.css">
 </head>
 <body>
 <div class="layui-card">
@@ -50,30 +51,50 @@
         </form>
     </div>
     <div class="layui-card-body">
-        <table id="dataTable" lay-filter="dataTable"></table>
-        <script type="text/html" id="tableToolbar">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm layui-btn-normal"
-                        lay-data="{url:'_admin/sys/addAccount.jsp',height:350,title:'新增用户'}" lay-event="dialog">新增
-                </button>
+        <div class="layui-row">
+            <div class="layui-col-xs8">
+                <table id="dataTable" lay-filter="dataTable"></table>
+                <script type="text/html" id="tableToolbar">
+                    <div class="layui-btn-container">
+                        <button class="layui-btn layui-btn-sm layui-btn-normal"
+                                lay-data="{url:'_admin/sys/addAccount.jsp',height:350,title:'新增用户'}"
+                                lay-event="dialog">新增
+                        </button>
+                    </div>
+                </script>
+                <script type="text/html" id="tableRowMenu">
+                    <a class="layui-btn layui-btn-xs" lay-event="dialog"
+                       lay-data="{url:'_admin/sys/updateAccount.jsp',params:{id:'?'},height:410,title:'编辑用户信息'}">编辑</a>
+                    <a class="layui-btn layui-btn-danger layui-btn-xs"
+                       lay-data="{url:'admin/account/deleteAccount',params:{id:'?'}}" lay-event="ajax">删除</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="changePass">修改密码</a>
+                    <a class="layui-btn layui-btn-xs layui-btn-normal"
+                       lay-data="{url:'_admin/sys/assignRoleToAccount.jsp',params:{id:'?'},title:'分配角色',width:530,height:450}"
+                       lay-event="dialog">分配角色</a>
+                </script>
             </div>
-        </script>
-        <script type="text/html" id="tableRowMenu">
-            <a class="layui-btn layui-btn-xs" lay-event="dialog"
-               lay-data="{url:'_admin/sys/updateAccount.jsp',params:{id:'?'},height:410,title:'编辑用户信息'}">编辑</a>
-            <a class="layui-btn layui-btn-danger layui-btn-xs"
-               lay-data="{url:'admin/account/deleteAccount',params:{id:'?'}}" lay-event="ajax">删除</a>
-            <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="changePass">修改密码</a>
-            <a class="layui-btn layui-btn-xs layui-btn-normal"
-               lay-data="{url:'_admin/sys/assignRoleToAccount.jsp',params:{id:'?'},title:'分配角色',width:530,height:450}"
-               lay-event="dialog">分配角色</a>
-        </script>
+            <div class="layui-col-xs4">
+                <fieldset class="layui-elem-field" style="margin-top: 10px;">
+                    <div class="layui-field-box">
+                        <div>账号（<span id="selectAccount" style="color:red;">未选择</span>）授权情况</div>
+                        <div class="layui-col-md12" id="treeDiv" style="padding-bottom: 20px;">
+                            <ul id="depTree" class="ztree"
+                                style="height: 100%;overflow: auto;border: 1px solid gray;"></ul>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
     </div>
 </div>
 </body>
 <script src="static/layui/layui.js"></script>
 <script src="static/js/layui.config.js"></script>
+<script src="static/ztree/jquery-1.4.4.min.js"></script>
+<script src="static/ztree/jquery.ztree.all.js"></script>
 <script>
+    var tree$ = window.jQuery;
+    var menuTree = null;
     layui.use(['singleTableList', 'jquery'], function () {
         var $ = layui.$;
         layui.singleTableList.render({
@@ -93,6 +114,24 @@
                     {field: 'lastLoginTime', title: '最后登录时间', width: 160},
                     {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 255}
                 ]]
+            },
+            rowClickListener: function (obj) {
+                $("#selectAccount").text(obj.data.username);
+                $.post("admin/permission/listAuthPermission?userId=" + obj.data.id, {}, function (rst) {
+//                    console.log(rst);
+                    if (rst.code == 0) {
+                        menuTree.checkAllNodes(false);
+                        $.each(rst.data, function (idx, one) {
+                            var node = menuTree.getNodeByParam("id", one.id);
+                            if (node) {
+//                            zTree.selectNode(node);
+                                menuTree.checkNode(node);
+                            }
+                        });
+                    } else {
+                        hy.msg("获取授权情况失败");
+                    }
+                });
             },
             toolbarListener: {},
             rowMenuListener: {
@@ -116,6 +155,58 @@
                     });
                 }
             }
+        });
+
+        var resetTreeHeight = function () {
+            var fullHeight = $(window).innerHeight();
+            $("#treeDiv").css("height", fullHeight - 199);
+        };
+        $(window).resize(resetTreeHeight);
+        resetTreeHeight();
+
+        tree$(document).ready(function () {
+            function ajaxDataFilter(treeId, parentNode, responseData) {
+                if (responseData) {
+                    responseData = responseData.data;
+                }
+                return responseData;
+            }
+
+            var zTreeOnAsyncSuccess = function (event, treeId, treeNode, msg) {
+                var zTree = tree$.fn.zTree.getZTreeObj(treeId);
+                zTree.expandAll(true);
+            };
+            var zTreeOnClick = function (event, treeId, treeNode) {
+                $(window).trigger("comm.permissionTreeSelected", arguments);
+            };
+            var zsetting = {
+                check: {
+                    enable: true,
+                    chkboxType: {"Y": "ps", "N": "ps"}
+                },
+                async: {
+                    autoParam: ["id=pid"],
+                    enable: true,
+                    url: "admin/permission/treePermission",
+                    dataFilter: ajaxDataFilter
+                },
+                data: {
+                    simpleData: {
+                        enable: true,
+                        idKey: "id",
+                        pIdKey: "pid"
+                        //rootPId: '0'
+                    }
+                },
+                callback: {
+                    onAsyncSuccess: zTreeOnAsyncSuccess,
+                    onClick: zTreeOnClick,
+                    beforeCheck: function () {
+                        return false;
+                    }
+                }
+            };
+            menuTree = tree$.fn.zTree.init(tree$("#depTree"), zsetting);
         });
     });
 </script>

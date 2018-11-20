@@ -31,7 +31,7 @@ listPermission
 listAuthPermission
 ===
     select
-    p.*
+    distinct(p.id),p.*
     from t_role_user ru
     left join t_role_permission rp on ru.role_id = rp.role_id
     left join t_permission p on rp.permission_id = p.id
