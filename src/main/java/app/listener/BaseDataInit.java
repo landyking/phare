@@ -6,10 +6,9 @@ import org.beetl.sql.core.SQLManager;
  * Created by landy on 2018/11/20.
  */
 public class BaseDataInit extends DataInit {
-    private SQLManager sql;
 
     public BaseDataInit(SQLManager sql) {
-        this.sql = sql;
+        super(sql);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class BaseDataInit extends DataInit {
     }
 
     @Override
-    public void initPermision() {
+    public void initPermission() {
 
     }
 

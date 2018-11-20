@@ -1,6 +1,6 @@
 -- 默认账号 admin 000000
-insert into t_account (id,username,password,last_login_ip,last_login_time,enable_flag,delete_flag)
-values ('1','admin','f902353066c4a8203a742a4978dc92f2','127.0.0.1',null,1,0);
+insert into t_account (id,username,password,last_login_ip,last_login_time,enable_flag,delete_flag,dep_id)
+values ('1','admin','f902353066c4a8203a742a4978dc92f2','127.0.0.1',null,1,0,'0');
 
 insert into t_dict (id,code,description,delete_flag,create_time,update_time) values ('1','yesOrNo','是否标记',0,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values ('11','1','0','否',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());

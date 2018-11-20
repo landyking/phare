@@ -2,6 +2,7 @@ package app.listener;
 
 import app.common.DateTimeTool;
 import gen.Department;
+import gen.DepartmentControl;
 import org.beetl.sql.core.SQLManager;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -11,10 +12,6 @@ import org.springframework.web.context.WebApplicationContext;
 public class TestDataInit {
     public static void init(WebApplicationContext applicationContext) {
         SQLManager sql = applicationContext.getBean(SQLManager.class);
-        //todo
-        System.out.println("#########################");
-        System.out.println("#########################");
-        System.out.println("#########################");
         initDepartmentData(sql);
     }
 
@@ -36,7 +33,6 @@ public class TestDataInit {
         for (int i = 0; i < 100; i++) {
             addDepartment(sql,"151" + i, "151", "测试" + i);
         }
-
     }
 
     private static void addDepartment(SQLManager sql, String id, String pid, String name) {
