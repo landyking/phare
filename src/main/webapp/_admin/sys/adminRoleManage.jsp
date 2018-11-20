@@ -26,6 +26,9 @@
                                 lay-data="{url:'_admin/sys/addRole.jsp',title:'新增角色',height:200}"
                                 lay-event="dialog">新增
                         </button>
+                        <button class="layui-btn layui-btn-sm layui-btn-warm"
+                                lay-event="saveGrant">保存授权
+                        </button>
                     </div>
                 </script>
                 <script type="text/html" id="permissionListTpl">
@@ -103,8 +106,27 @@
                 });
             },
             toolbarListener: {
-                'test1': function (checkStatus, data, obj) {
-                    layui.layer.msg('test1');
+                'saveGrant': function (checkStatus, data, obj) {
+                    if (selectRoleId) {
+                        var zTree = menuTree;
+                        var nodes = zTree.getCheckedNodes(true);
+                        var ids = "";
+                        $.each(nodes, function (idx, one) {
+                            ids += one.id + ",";
+                        });
+                        $.post("admin/account/grantPermissionListToRole", {
+                            roleId: selectRoleId,
+                            ids: ids
+                        }, function (rst) {
+                            if (rst.code == 0) {
+                                hy.msg("保存成功");
+                            } else {
+                                hy.msg("保存授权信息失败");
+                            }
+                        });
+                    }else{
+                        hy.msg("未选择角色");
+                    }
                 }
             },
             rowMenuListener: {
@@ -130,32 +152,12 @@
             }
 
             function zTreeOnCheck(event, treeId, treeNode) {
-                if (selectRoleId) {
-                    var zTree = tree$.fn.zTree.getZTreeObj(treeId);
-                    var nodes = zTree.getCheckedNodes(true);
-                    var ids = "";
-                    $.each(nodes, function (idx, one) {
-                        ids += one.id + ",";
-                    });
-                    $.post("admin/account/grantPermissionListToRole", {
-                        roleId: selectRoleId,
-                        ids: ids
-                    }, function (rst) {
-                        if (rst.code == 0) {
 
-                        } else {
-                            hy.msg("保存授权信息失败");
-                        }
-                    });
-                }
             }
 
             var zTreeOnAsyncSuccess = function (event, treeId, treeNode, msg) {
                 var zTree = tree$.fn.zTree.getZTreeObj(treeId);
                 zTree.expandAll(true);
-            };
-            var zTreeOnClick = function (event, treeId, treeNode) {
-                $(window).trigger("comm.permissionTreeSelected", arguments);
             };
             var zsetting = {
                 view: {
@@ -183,7 +185,6 @@
                 },
                 callback: {
                     onAsyncSuccess: zTreeOnAsyncSuccess,
-                    onClick: zTreeOnClick,
                     onCheck: zTreeOnCheck
                 }
             };

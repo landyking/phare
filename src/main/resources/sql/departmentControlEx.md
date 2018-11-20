@@ -20,11 +20,9 @@ listPageData
     @}
     @if(hasValue(type)){
     and t.TYPE = #type#
-    and t.TYPE like #'%'+type+'%'#
     @}
     @if(hasValue(userId)){
     and t.USER_ID = #userId#
-    and t.USER_ID like #'%'+userId+'%'#
     @}
     @pageIgnoreTag(){
     order by t.create_time desc
