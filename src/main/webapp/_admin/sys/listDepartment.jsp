@@ -20,7 +20,7 @@
 </head>
 <body>
 <div class="layui-row" style="background-color: #ffffff; padding:20px 20px 0px 20px;">
-    <div class="layui-col-xs3">
+    <div class="layui-col-xs2">
         <fieldset class="layui-elem-field">
             <%--<legend>单位</legend>--%>
             <div class="layui-field-box">
@@ -32,7 +32,7 @@
             </div>
         </fieldset>
     </div>
-    <div class="layui-col-xs9">
+    <div class="layui-col-xs10">
         <fieldset class="layui-elem-field">
             <%--<legend>单位管理</legend>--%>
             <div class="layui-field-box">
@@ -88,7 +88,7 @@
             if (depTable == null) {
                 depTable = layui.singleTableList.render({
                     layFilter: 'dataTable',
-                    calcHeightOffset: 170,
+                    calcHeightOffset: 150,
                     tableConfig: {
                         url: 'admin/department/listDepartment?pid=' + pid,
                         cols: [[
@@ -127,7 +127,7 @@
 
         var resetTreeHeight = function () {
             var fullHeight = $(window).innerHeight();
-            $("#treeDiv").css("height", fullHeight - 102);
+            $("#treeDiv").css("height", fullHeight - 82);
         };
         $(window).resize(resetTreeHeight);
         resetTreeHeight();
