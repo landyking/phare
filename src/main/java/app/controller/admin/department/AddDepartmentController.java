@@ -7,8 +7,11 @@ import app.common.web.SuperParam;
 import app.controller.admin.AdminController;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import gen.*;
+
 import java.util.*;
+
 import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
 import org.springframework.web.servlet.ModelAndView;
 
 @Component
@@ -16,17 +19,19 @@ public class AddDepartmentController extends AdminController {
 
     @Override
     protected ModelAndView doWork(SuperParam superParam) throws Exception {
-        String address=superParam.needParam("address",String.class);
-        Long createTime=superParam.needParam("createTime",Long.class);
-        String description=superParam.needParam("description",String.class);
-        String id=superParam.needParam("id",String.class);
-        String latitude=superParam.needParam("latitude",String.class);
-        String longitude=superParam.needParam("longitude",String.class);
-        String name=superParam.needParam("name",String.class);
-        String pid=superParam.needParam("pid",String.class);
-        Long updateTime=superParam.needParam("updateTime",Long.class);
+        String id = superParam.needParam("id", String.class);
+        long count = sql.lambdaQuery(Department.class).andEq(Department::getId, id).count();
+        Assert.isTrue(count < 1, "单位编号已存在");
+        String address = superParam.getParam("address", String.class);
+        Long createTime = DateTimeTool.nowLong();
+        String description = superParam.getParam("description", String.class);
+        String latitude = superParam.getParam("latitude", String.class);
+        String longitude = superParam.getParam("longitude", String.class);
+        String name = superParam.needParam("name", String.class);
+        String pid = superParam.needParam("pid", String.class);
+        Long updateTime = DateTimeTool.nowLong();
 
-        Department one=new Department();
+        Department one = new Department();
         one.setAddress(address);
         one.setCreateTime(createTime);
         one.setDescription(description);

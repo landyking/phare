@@ -84,6 +84,8 @@
                     {type: 'numbers'},
                     {field: 'id', title: 'id', hide: true},
                     {field: 'username', title: '账号', width: 150},
+                    {field: 'depName', title: '单位', width: 200},
+                    {field: 'depId', title: '单位编号', hide: true},
                     {field: 'description', title: '描述'},
                     {field: 'roles', title: '拥有角色'},
                     {field: 'enableFlag', title: '启用', width: 70},

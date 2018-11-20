@@ -18,6 +18,7 @@ layui.define(['hyUtil', 'table', 'layer', 'element', 'form', 'hyForm', 'common']
                 elem: '#dataTable',
                 height: null,
                 page: true,
+                limit:20,
                 toolbar: '#tableToolbar',
                 defaultToolbar: ['filter', 'print'],
                 done: function () {

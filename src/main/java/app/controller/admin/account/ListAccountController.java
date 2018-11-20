@@ -44,6 +44,8 @@ public class ListAccountController extends AdminController {
             ObjectNode o = data.addObject();
 
             o.putPOJO("id", one.getId());
+            o.putPOJO("depId", one.getDepId());
+            o.putPOJO("depName", one.get("depName"));
             o.putPOJO("enableFlag", translator.translate(DictKey.yesOrNo, one.getEnableFlag()));
             o.putPOJO("lastLoginIp", one.getLastLoginIp());
             o.putPOJO("username", one.getUsername());

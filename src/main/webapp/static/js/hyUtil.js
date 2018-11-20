@@ -277,7 +277,7 @@ layui.define(['jquery', 'layer'], function (exports) {
                     width: 400,
                     height: 450,
                     title: "选择单位",
-                    url: "main/department/departmentSelect.html?type=" + type + '&parentInclude=' + parentInclude
+                    url: "_admin/sys/lookupDepartment.jsp?type=" + type + '&parentInclude=' + parentInclude
                 };
                 $.extend(depParam, param);
                 me.popup.openSelect(depParam, dataCallback);

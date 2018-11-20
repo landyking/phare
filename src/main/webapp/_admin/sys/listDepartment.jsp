@@ -14,8 +14,15 @@
     <link rel="stylesheet" href="static/css/common.css">
     <link rel="stylesheet" href="static/ztree/zTreeStyle/zTreeStyle.css">
     <style type="text/css">
-        .ztree li span.button.switch.level0 {visibility:hidden; width:1px;}
-        .ztree li ul.level0 {padding:0; background:none;}
+        .ztree li span.button.switch.level0 {
+            visibility: hidden;
+            width: 1px;
+        }
+
+        .ztree li ul.level0 {
+            padding: 0;
+            background: none;
+        }
     </style>
 </head>
 <body>
@@ -62,10 +69,17 @@
                     <script type="text/html" id="tableToolbar">
                         <div class="layui-btn-container">
                             <button class="layui-btn layui-btn-sm layui-btn-normal"
-                                    lay-data="{url:'_admin/sys/addDepartment.jsp',height:350,title:'新增单位'}"
+                                    lay-data="{url:'_admin/sys/addDepartment.jsp',height:550,title:'新增单位',params:{pid:window.pdep.pid,pname:window.pdep.pname}}"
                                     lay-event="dialog">新增单位
                             </button>
                         </div>
+                    </script>
+                    <script type="text/html" id="tableRowMenu">
+                        <a class="layui-btn layui-btn-xs" lay-event="dialog"
+                           lay-data="{url:'_admin/sys/updateDepartment.jsp',params:{id:'?'},height:410,title:'编辑单位信息'}">编辑</a>
+                        <a class="layui-btn layui-btn-danger layui-btn-xs"
+                           lay-data="{url:'admin/department/deleteDepartment',params:{id:'?'}}"
+                           lay-event="ajax">删除</a>
                     </script>
                 </div>
 
@@ -81,6 +95,7 @@
 <script src="static/ztree/jquery.ztree.all.js"></script>
 <script>
     var tree$ = window.jQuery;
+    window.pdep = {};
     layui.use(['singleTableList', 'jquery', 'hyUtil'], function () {
         var $ = layui.$;
         var depTable = null;
@@ -97,17 +112,14 @@
                             {field: 'name', title: '单位名称'},
                             {field: 'id', title: '单位编号'},
                             {field: 'address', title: '单位地址'},
-                            {field: 'createTime', title: '创建时间',hide:true},
-                            {field: 'description', title: '描述',hide:true},
+                            {field: 'createTime', title: '创建时间', hide: true},
+                            {field: 'description', title: '描述', hide: true},
 //                            {field: 'latitude', title: '纬度'},
 //                            {field: 'longitude', title: '经度'},
                             {field: 'pname', title: '上级单位'},
                             {field: 'updateTime', title: '更新时间'},
                             {fixed: 'right', title: '操作', toolbar: '#tableRowMenu', width: 130}
-                        ]],
-                        done: function () {
-//                    console.log("#############");
-                        }
+                        ]]
                     },
                     toolbarListener: {},
                     rowMenuListener: {}
@@ -122,7 +134,10 @@
             }
         };
         $(window).on("comm.depTreeSelected", function (evt, oevt, tid, node) {
-            renderTableByPid(node.id);
+            var pid = node.id;
+            var pname = node.name;
+            window.pdep = {pid: pid, pname: encodeURI(pname)};
+            renderTableByPid(pid);
         });
 
         var resetTreeHeight = function () {
@@ -138,11 +153,11 @@
             function ajaxDataFilter(treeId, parentNode, responseData) {
                 if (responseData) {
                     responseData = {
-                        id:"0",
-                        name:"单位树",
-                        iconOpen:"static/ztree/zTreeStyle/img/diy/1_open.png",
-                        iconClose:"static/ztree/zTreeStyle/img/diy/1_close.png",
-                        children:responseData.data
+                        id: "0",
+                        name: "单位树",
+                        iconOpen: "static/ztree/zTreeStyle/img/diy/1_open.png",
+                        iconClose: "static/ztree/zTreeStyle/img/diy/1_close.png",
+                        children: responseData.data
                     };
                 }
                 return responseData;
