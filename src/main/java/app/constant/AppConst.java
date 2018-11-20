@@ -8,4 +8,8 @@ public interface AppConst {
         int yes = 1;
         int no = 0;
     }
+
+    interface DepartmentControlType {
+        int defVal = 0;
+    }
 }

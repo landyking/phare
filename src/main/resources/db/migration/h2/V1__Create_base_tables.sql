@@ -158,3 +158,18 @@ comment on column t_department.longitude is '经度';
 comment on column t_department.name is '单位名称';
 comment on column t_department.pid is '上级单位id';
 comment on column t_department.update_time is '更新时间';
+
+create table t_department_control (
+    create_time number(20) NULL,
+    dep_id varchar2(32) NULL,
+    id varchar2(32) NOT NULL,
+    type number(4) NULL,
+    user_id varchar2(32) NULL
+);
+alter table t_department_control add constraint pk_16730eb1b7e primary key (id);
+comment on table t_department_control is '部门控制情况';
+comment on column t_department_control.create_time is '创建时间';
+comment on column t_department_control.dep_id is '部门id';
+comment on column t_department_control.id is '主键';
+comment on column t_department_control.type is '控制类型';
+comment on column t_department_control.user_id is '用户id';

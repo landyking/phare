@@ -10,6 +10,9 @@ insert into t_dict (id,code,description,delete_flag,create_time,update_time) val
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values ('21','2','0','菜单',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values ('22','2','1','按钮',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 
+insert into t_dict (id,code,description,delete_flag,create_time,update_time) values ('3','departmentControlType','部门控制类型',0,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values ('31','3','0','默认',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
+
 insert into t_dict (id,code,description,delete_flag,create_time,update_time) values ('9','operateLogType','操作日志类型',0,CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('92','9','2','管理员登录',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
 insert into t_dict_item (id,dict_id,code,CONTENT,create_time,update_time) values('93','9','3','修改自身密码',CURRENT_TIMESTAMP(),CURRENT_TIMESTAMP());
@@ -41,8 +44,9 @@ insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003000', '权限管理', '', '', 'p1000000', '3', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003010', '后台账户', '_admin/sys/adminUserManage.jsp', 'layui-icon-user', 'p1003000', '1', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003020', '后台角色', '_admin/sys/adminRoleManage.jsp', 'layui-icon-star', 'p1003000', '2', CURRENT_TIMESTAMP(), '1', '0');
-insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003030', '后台权限', '_admin/sys/adminPermissionManage.jsp', 'layui-icon-component', 'p1003000', '3', CURRENT_TIMESTAMP(), '1', '0');
+insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003030', '功能权限', '_admin/sys/adminPermissionManage.jsp', 'layui-icon-component', 'p1003000', '3', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003040', '单位信息', '_admin/sys/listDepartment.jsp', 'layui-icon-component', 'p1003000', '4', CURRENT_TIMESTAMP(), '1', '0');
+insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1003050', '数据权限', '_admin/sys/listDepartmentControl.jsp', 'layui-icon-component', 'p1003000', '5', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1004000', '日志管理', '_admin/sys/logManage.jsp', 'layui-icon-date', 'p1000000', '4', CURRENT_TIMESTAMP(), '1', '0');
 insert into T_PERMISSION (ID, NAME, URL, ICO, PID, ORDER_FLAG, CREATE_TIME, USE_FLAG, TYPE) values ('p1005000', '系统信息', '_admin/sys/systemInfo.jsp', 'layui-icon-rmb', 'p1000000', '5', CURRENT_TIMESTAMP(), '1', '0');
 

@@ -8,4 +8,5 @@ public interface DictKey {
     String permissionType = "permissionType";
     String gender = "gender";
     String operateLogType = "operateLogType";
+    String departmentControlType = "departmentControlType";
 }
